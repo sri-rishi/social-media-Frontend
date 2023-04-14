@@ -1,16 +1,21 @@
 import { useState } from "react";
 import {Link} from "react-router-dom";
 import { Button } from "../../components";
+import {useSelector, useDispatch} from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
+import { loginUser } from "./authSlice";
 
 export const Login = () => {
+    const {token} = useSelector((store: RootState) => store?.auth);
+    const dispatch = useDispatch<AppDispatch>();
     const [loginDetails, setLoginDetails] = useState({
-        email: "",
+        username: "",
         password: ""
     });
 
     const loginHandler = () => {
-        if(loginDetails.email !== "" && loginDetails.password !== "") {
-            console.log("logged in")
+        if(loginDetails.username !== "" && loginDetails.password !== "") {
+            dispatch(loginUser(loginDetails))
         }
     };
 
@@ -35,8 +40,8 @@ export const Login = () => {
                             type="text" 
                             name="username" 
                             placeholder="Username Or Email"
-                            value={loginDetails.email}
-                            onChange={(e) => setLoginDetails(details => ({...details, email: e.target.value}))}
+                            value={loginDetails.username}
+                            onChange={(e) => setLoginDetails(details => ({...details, username: e.target.value}))}
                         />
                     </div>
                     <div className="w-full flex flex-col gap-2">
