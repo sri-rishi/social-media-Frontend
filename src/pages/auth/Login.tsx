@@ -5,10 +5,15 @@ import {useSelector, useDispatch} from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { loginUser } from "./authSlice";
 
+type LoginUserDetials = {
+    username: string,
+    password: string
+}
+
 export const Login = () => {
     const {token} = useSelector((store: RootState) => store?.auth);
     const dispatch = useDispatch<AppDispatch>();
-    const [loginDetails, setLoginDetails] = useState({
+    const [loginDetails, setLoginDetails] = useState<LoginUserDetials>({
         username: "",
         password: ""
     });
