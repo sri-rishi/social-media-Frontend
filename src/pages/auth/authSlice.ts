@@ -1,6 +1,6 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import type {PayloadAction} from "@reduxjs/toolkit";
-import { loginUserService } from "../../services/authServices";
+import { loginUserService, registerUserService } from "../../services/authServices";
 
 export type User = {
     _id: string,
@@ -23,7 +23,7 @@ interface AuthState {
     user: User | null;
     token: string | null;
     error: string | null;
-    authStatus: "idle" | "pending" | "fulfilled" | "error";
+    authStatus: "idle" | "pending" | "fulfilled" | "rejected";
 }
 
 const initialState: AuthState = {
@@ -48,6 +48,24 @@ export const loginUser = createAsyncThunk(
     }
 )
 
+type RegisterUser = {
+    username: string,
+    password: string,
+    firstname: string,
+    lastname: string
+}
+
+export const registerUser = createAsyncThunk(
+    "auth/registerUser", 
+    async({username, password, firstname, lastname}: RegisterUser) => {
+        const response = await registerUserService(username, password, firstname, lastname);
+        console.log(response)
+
+        return (await response.data) as AuthResponse;
+    }
+)
+
+
 export const authSlice = createSlice({
     name: "auth",
     initialState,
@@ -68,10 +86,29 @@ export const authSlice = createSlice({
             }            
         },
         [`${loginUser.rejected}`]: (state, action: PayloadAction<AuthState>) => {
-            state.authStatus = "error";
+            state.authStatus = "rejected";
             state.error = action.payload.error;
         },
+        [`${registerUser.pending}`]: (state) => {
+            state.authStatus = "pending";
+        },
+        [`${registerUser.fulfilled}`]: (state, action: PayloadAction<AuthState>) => {
+            state.authStatus = "fulfilled";
+            state.token = action.payload.token;
+            state.user = action.payload.user;
+            if(state.token !== null) {
+                localStorage.setItem("token", state.token);
+            }
+            if(state.user !== null) {
+                localStorage.setItem("userValue", JSON.stringify(state.user));
+            }  
+        },
+        [`${registerUser.rejected}`]: (state, action: PayloadAction<AuthState>) => {
+            state.authStatus = "rejected";
+            state.error = action.payload.error;
+        }
     }
 })
+
 
 export default authSlice.reducer;
