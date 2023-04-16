@@ -1,30 +1,8 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import type {PayloadAction} from "@reduxjs/toolkit";
 import { loginUserService, registerUserService } from "../../services/authServices";
+import { AuthResponse,AuthState,Loginuser, RegisterUser} from "./authSlice.types";
 
-export type User = {
-    _id: string,
-    username: string,
-    password: string,
-    firstname: string,
-    lastname: string,
-    followers: Array<string>,
-    following: Array<string>,
-    createdAt: Date,
-    updatedAt: Date,
-}
-
-export type AuthResponse = {
-    user: User | null,
-    token: string | null
-}
-
-interface AuthState {
-    user: User | null;
-    token: string | null;
-    error: string | null;
-    authStatus: "idle" | "pending" | "fulfilled" | "rejected";
-}
 
 const initialState: AuthState = {
     token: localStorage.getItem("token") || null,
@@ -33,10 +11,7 @@ const initialState: AuthState = {
     authStatus: "idle"
 }
 
-type Loginuser = {
-    username: string,
-    password: string
-}
+
 
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
@@ -48,12 +23,7 @@ export const loginUser = createAsyncThunk(
     }
 )
 
-type RegisterUser = {
-    username: string,
-    password: string,
-    firstname: string,
-    lastname: string
-}
+
 
 export const registerUser = createAsyncThunk(
     "auth/registerUser", 
