@@ -1,24 +1,35 @@
 import { useState } from "react";
 import {Link} from "react-router-dom"
 import { Button } from "../../components";
+import { registerUser } from "./authSlice";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../app/store";
+
+type RegisterUserDetails = {
+    username: string,
+    password: string,
+    firstname: string,
+    lastname: string,
+}
 
 export const SignUp = () => {
-    const [signupDetails, setSignupDetails] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: ""
+    const dispatch = useDispatch<AppDispatch>()
+    const [signupDetails, setSignupDetails] = useState<RegisterUserDetails>({
+        username: "",
+        password: "",
+        firstname: "",
+        lastname: "",
     })
     
 
     const signupHandler = () => {
         if(
-            signupDetails.firstName !== "" &&
-            signupDetails.lastName !== "" && 
-            signupDetails.email !== "" && 
-            signupDetails.password !== ""
+            signupDetails.username !== "" && 
+            signupDetails.password !== "" &&
+            signupDetails.firstname !== "" &&
+            signupDetails.lastname !== "" 
         ) {
-           console.log("signed Up")
+            dispatch(registerUser(signupDetails))
         }
     }
 
@@ -39,8 +50,8 @@ export const SignUp = () => {
                             type="text" 
                             name="firstName" 
                             placeholder="First Name"
-                            value={signupDetails.firstName}
-                            onChange={(e) => setSignupDetails(details => ({...details, firstName: e.target.value}))}
+                            value={signupDetails.firstname}
+                            onChange={(e) => setSignupDetails(details => ({...details, firstname: e.target.value}))}
                         />
                     </div>
                     <div className="w-full flex flex-col gap-2">
@@ -52,8 +63,8 @@ export const SignUp = () => {
                             type="text" 
                             name="secondName" 
                             placeholder="Second Name"
-                            value={signupDetails.lastName}
-                            onChange={(e) => setSignupDetails(details => ({...details, lastName: e.target.value}))}
+                            value={signupDetails.lastname}
+                            onChange={(e) => setSignupDetails(details => ({...details, lastname: e.target.value}))}
                         />
                     </div>
                     <div className="w-full flex flex-col gap-2">
@@ -65,8 +76,8 @@ export const SignUp = () => {
                             type="text"    
                             name="username" 
                             placeholder="Username Or Email"
-                            value={signupDetails.email}
-                            onChange={(e) => setSignupDetails(details => ({...details, email: e.target.value}))}
+                            value={signupDetails.username}
+                            onChange={(e) => setSignupDetails(details => ({...details, username: e.target.value}))}
                         />
                     </div>
                     <div className="w-full flex flex-col gap-2">
