@@ -10,7 +10,7 @@ type LoginUserDetials = {
     password: string
 }
 
-export const Login = () => {
+export const Login: React.FC = () => {
     const {token} = useSelector((store: RootState) => store?.auth);
     const dispatch = useDispatch<AppDispatch>();
     const [loginDetails, setLoginDetails] = useState<LoginUserDetials>({
@@ -25,7 +25,7 @@ export const Login = () => {
     };
 
     const testLoginHandler = () => {
-        console.log("test logger")
+        setLoginDetails(details => ({...details, username: "admin@gmail.com", password: "Admin@1234"}))
     }
     
     return (

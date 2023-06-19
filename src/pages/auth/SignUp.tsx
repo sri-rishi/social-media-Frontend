@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState} from "react";
 import {Link} from "react-router-dom"
-import { Button } from "../../components";
+import { Button, PasswordCriteriaList } from "../../components";
 import { registerUser } from "./authSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
+import { validatePassword} from "../../helpers";
 
 type RegisterUserDetails = {
     username: string,
@@ -12,15 +13,30 @@ type RegisterUserDetails = {
     lastname: string,
 }
 
-export const SignUp = () => {
+export const SignUp: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>()
     const [signupDetails, setSignupDetails] = useState<RegisterUserDetails>({
         username: "",
         password: "",
         firstname: "",
         lastname: "",
-    })
+    });
+    const [isValid, setIsValid] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
+
+    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setSignupDetails(details => ({...details, password: value}))
+        setIsValid(validatePassword(value));
+    };
+
+    const handleFocus = () => {
+        setIsFocused(true);
+    }
     
+    const handleBlur = () =>{
+        setIsFocused(false);
+    } 
 
     const signupHandler = () => {
         if(
@@ -30,8 +46,22 @@ export const SignUp = () => {
             signupDetails.lastname !== "" 
         ) {
             dispatch(registerUser(signupDetails))
+        }else {
+            alert("Enter all field")
+        }
+        setSignupDetails(details =>  ({...details,username: "", password: "", firstname: "", lastname: ""}))
+    }
+
+    const handleSignUp = () => {
+        if(isValid) {
+            signupHandler()
+        }else {
+            alert("Please input valid password")
         }
     }
+    
+    
+    
 
     return (
         <div className="w-full h-screen flex flex-row justify-center items-center">
@@ -73,7 +103,7 @@ export const SignUp = () => {
                         </label>
                         <input 
                             className="border-2 p-2 rounded font-normal" 
-                            type="text"    
+                            type="email"    
                             name="username" 
                             placeholder="Username Or Email"
                             value={signupDetails.username}
@@ -89,16 +119,23 @@ export const SignUp = () => {
                             type="password" 
                             name="password" 
                             placeholder="Password"
+                            onFocus={() => handleFocus()}
+                            onBlur={() => handleBlur()} 
                             value={signupDetails.password}
-                            onChange={(e) => setSignupDetails(details => ({...details, password: e.target.value}))}
+                            onChange={(e) => handlePasswordChange(e)}
                         />
                     </div>
+
+                    {
+                        isFocused &&
+                        <PasswordCriteriaList password={signupDetails.password}/>
+                    }
                 </div>
                 <div className="w-full flex flex-col items-center gap-4 py-2">
                     <Button 
                         className={"w-full bg-teal-500 p-2 rounded-2xl text-white hover:bg-teal-700"}
                         text={"Sign Up"}
-                        onClick={() => signupHandler()}
+                        onClick={() => handleSignUp()}
                     />
                     <Link to="/login">
                         <p className={"text-teal-400"}>Already have account ?</p>

@@ -1,2 +1,4 @@
 import { Button } from './button/Button';
-export {Button}
+import { PasswordCriteriaList } from './passwordCriteriaList/PasswordCriteriaList';
+
+export {Button, PasswordCriteriaList}
