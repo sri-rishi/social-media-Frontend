@@ -4,6 +4,7 @@ import { Button } from "../../components";
 import {useSelector, useDispatch} from "react-redux";
 import { AppDispatch, RootState } from "../../app/store";
 import { loginUser } from "./authSlice";
+import { AiOutlineEyeInvisible, AiOutlineEye } from "../../assets";
 
 type LoginUserDetials = {
     username: string,
@@ -17,6 +18,7 @@ export const Login: React.FC = () => {
         username: "",
         password: ""
     });
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const loginHandler = () => {
         if(loginDetails.username !== "" && loginDetails.password !== "") {
@@ -26,6 +28,10 @@ export const Login: React.FC = () => {
 
     const testLoginHandler = () => {
         setLoginDetails(details => ({...details, username: "admin@gmail.com", password: "Admin@1234"}))
+    }
+
+    const handleTogglePassword = () => {
+        setShowPassword((showPassword) => !showPassword);
     }
     
     return (
@@ -53,14 +59,31 @@ export const Login: React.FC = () => {
                         <label htmlFor="password">
                             Password
                         </label>
-                        <input 
-                            className="border-2 p-2 rounded font-normal"  
-                            type="password" 
-                            name="password" 
-                            placeholder="Password"
-                            value={loginDetails.password}
-                            onChange={(e) => setLoginDetails(details => ({...details, password: e.target.value}))}
-                        />
+                        <div className="w-full relative border-2 rounded">
+                            <div className="w-full">
+                                <input 
+                                    className="w-full rounded  p-2"
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    placeholder="Password"
+                                    value={loginDetails.password}
+                                    onChange={(e) => setLoginDetails(details => ({...details, password: e.target.value}))}
+                                />
+                            
+                            </div>
+
+                            <Button
+                                onClick={() =>  handleTogglePassword()}
+                                className="text-2xl absolute bottom-2 right-5 "
+                                icon = {
+                                    showPassword 
+                                    ?
+                                    <AiOutlineEyeInvisible />
+                                    :
+                                    <AiOutlineEye />
+                                }
+                             />
+                        </div>
                     </div>
                 </div>
                 <div className="w-full flex flex-col items-center gap-4 py-2">
