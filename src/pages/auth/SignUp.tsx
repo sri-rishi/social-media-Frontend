@@ -5,6 +5,7 @@ import { registerUser } from "./authSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../app/store";
 import { validatePassword} from "../../helpers";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "../../assets";
 
 type RegisterUserDetails = {
     username: string,
@@ -21,8 +22,8 @@ export const SignUp: React.FC = () => {
         firstname: "",
         lastname: "",
     });
-    const [isValid, setIsValid] = useState(false);
-    const [isFocused, setIsFocused] = useState(false);
+    const [isValid, setIsValid] = useState<boolean>(false);
+    const [showPassword, setShowPassword] = useState<boolean>(false);
 
     const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -30,13 +31,9 @@ export const SignUp: React.FC = () => {
         setIsValid(validatePassword(value));
     };
 
-    const handleFocus = () => {
-        setIsFocused(true);
+    const handleTogglePassword = () => {
+        setShowPassword((showPassword) => !showPassword);
     }
-    
-    const handleBlur = () =>{
-        setIsFocused(false);
-    } 
 
     const signupHandler = () => {
         if(
@@ -110,26 +107,39 @@ export const SignUp: React.FC = () => {
                             onChange={(e) => setSignupDetails(details => ({...details, username: e.target.value}))}
                         />
                     </div>
+
+                    <PasswordCriteriaList password={signupDetails.password}/>
+
                     <div className="w-full flex flex-col gap-2">
                         <label htmlFor="password">
                             Password
                         </label>
-                        <input 
-                            className="border-2 p-2 rounded font-normal"   
-                            type="password" 
-                            name="password" 
-                            placeholder="Password"
-                            onFocus={() => handleFocus()}
-                            onBlur={() => handleBlur()} 
-                            value={signupDetails.password}
-                            onChange={(e) => handlePasswordChange(e)}
-                        />
-                    </div>
+                    
+                        <div className="w-full relative border-2 rounded">
+                            <div className="w-full">
+                                <input 
+                                    className="w-full rounded  p-2"
+                                    type={showPassword ? "text" : "password"} 
+                                    name="password" 
+                                    placeholder="Password"
+                                    value={signupDetails.password}
+                                    onChange={(e) => handlePasswordChange(e)}
+                                />
+                            </div>
 
-                    {
-                        isFocused &&
-                        <PasswordCriteriaList password={signupDetails.password}/>
-                    }
+                            <Button
+                                onClick={() =>  handleTogglePassword()}
+                                className="text-2xl absolute bottom-2 right-5 "
+                                icon={
+                                    showPassword 
+                                    ?
+                                    <AiOutlineEyeInvisible />
+                                    :
+                                    <AiOutlineEye />
+                                }
+                            />
+                        </div>
+                    </div>
                 </div>
                 <div className="w-full flex flex-col items-center gap-4 py-2">
                     <Button 
