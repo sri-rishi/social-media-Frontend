@@ -1,5 +1,5 @@
 import {Routes, Route, useLocation} from "react-router-dom"
-import { Login, SignUp } from "../pages"
+import { Home, Login, SignUp } from "../pages"
 import { useEffect } from "react";
 
 export const AllRoutes: React.FC = () => {
@@ -12,6 +12,7 @@ export const AllRoutes: React.FC = () => {
     
     return(
         <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />}/>
             <Route path="/register" element={<SignUp />} />
         </Routes>
