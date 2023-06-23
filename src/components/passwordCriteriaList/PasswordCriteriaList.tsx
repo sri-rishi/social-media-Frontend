@@ -4,7 +4,7 @@ type Props = {
     password: string
 }
 
-const PasswordCriteriaList  = ({password}: Props) => {
+export const PasswordCriteriaList: React.FC<Props>  = ({password}: Props) => {
 
     const passwordCriteria = checkPasswordCriteria(password);
     return (
@@ -22,5 +22,3 @@ const PasswordCriteriaList  = ({password}: Props) => {
         </div>
     )
 }
-
-export { PasswordCriteriaList};

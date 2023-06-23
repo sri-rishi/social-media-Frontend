@@ -7,7 +7,7 @@ type Props = {
     icon?: ReactNode
 }
 
-export const Button = ({onClick, className, text, icon}: Props) => {
+export const Button: React.FC<Props> = ({onClick, className, text, icon}: Props) => {
     return (
         <button onClick={() => onClick && onClick()} className={className && className}>{icon && icon}{text && text}</button>
     )
