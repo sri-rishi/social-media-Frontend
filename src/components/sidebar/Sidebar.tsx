@@ -1,6 +1,7 @@
-import {Link, NavLink} from "react-router-dom"
+import {Link} from "react-router-dom"
 import { GoHome, MdOutlineExplore, IoBookmarkOutline, CgProfile, GiFeather, IoMdSearch, FiLogOut} from "../../assets";
 import { Button} from "../index";
+import { NavLinkWithActive } from "../index";
 
 export const Sidebar: React.FC = () => {
 
@@ -16,35 +17,35 @@ export const Sidebar: React.FC = () => {
                 </header>
             </Link>
             <ul className="flex flex-col md:gap-1 py-6">
-                <NavLink to="/" >
+                <NavLinkWithActive to="/">
                     <li className="flex flex-row items-center p-4 gap-4 hover:text-teal-400 hover:bg-white hover:shadow-md rounded-2xl">
                         <GoHome className="text-2xl mb-0.5"/>
                         <span className="hidden xl:flex text-lg">Home</span>
                     </li>
-                </NavLink> 
-                <NavLink to="/explore">
+                </NavLinkWithActive> 
+                <NavLinkWithActive to="/explore">
                     <li className="flex flex-row items-center p-4 hover:bg-white hover:text-teal-400 hover:shadow-md xl:hidden rounded-2xl">
                         <IoMdSearch className="text-2xl"/>
                     </li>
-                </NavLink>
-                <NavLink to="/explore">
+                </NavLinkWithActive>
+                <NavLinkWithActive to="/explore">
                     <li className="hidden xl:flex flex-row items-center gap-4 p-4 hover:text-teal-400 hover:bg-white hover:shadow-md rounded-2xl">
                         <MdOutlineExplore className="text-2xl"/>
                         <span className="hidden xl:flex text-lg">Explore</span>
                     </li>
-                </NavLink>
-                <NavLink to="/bookmarks">
+                </NavLinkWithActive>
+                <NavLinkWithActive to="/bookmarks">
                     <li className="flex flex-row items-center p-4 gap-4 hover:text-teal-400 hover:bg-white hover:shadow-md rounded-2xl">
                         <IoBookmarkOutline className="text-2xl"/>
                         <span className="hidden xl:flex text-lg">Bookmarks</span>
                     </li>
-                </NavLink>
-                <NavLink to="/profile">
+                </NavLinkWithActive>
+                <NavLinkWithActive to="/profile">
                     <li className="flex flex-row items-center p-4 gap-4 hover:text-teal-400 hover:bg-white hover:shadow-md rounded-2xl">
                         <CgProfile className="text-2xl"/>
                         <span className="hidden xl:flex text-lg">Profile</span>
                     </li>
-                </NavLink>
+                </NavLinkWithActive>
                 <li 
                     className="flex flex-row items-center p-4 gap-4 hover:text-teal-400 hover:bg-white hover:shadow-md rounded-2xl"
                 >
