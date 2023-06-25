@@ -2,8 +2,13 @@ import {Link} from "react-router-dom"
 import { GoHome, MdOutlineExplore, IoBookmarkOutline, CgProfile, GiFeather, IoMdSearch, FiLogOut} from "../../assets";
 import { Button} from "../index";
 import { NavLinkWithActive } from "../index";
+import { useDispatch } from "react-redux";
+import {AppDispatch} from "../../app/store";
+import { openNewPostModal } from "../newPostBox/newPostSlice";
 
 export const Sidebar: React.FC = () => {
+
+    const dispatch = useDispatch<AppDispatch>();
 
     return (
         <aside className="hidden md:flex fixed h-screen top-0 flex-col md:gap-2 w-1/6 mt-16 md:m-0 items-end px-4 py-2 bg-slate-100 xl:items-center">
@@ -58,12 +63,12 @@ export const Sidebar: React.FC = () => {
                 <Button 
                     className={`rounded-full w-14 h-14 bg-teal-600 flex flex-row items-center justify-center text-xl text-white hover:shadow-2xl xl:hidden`} 
                     icon={<GiFeather />}
-                    onClick={() => console.log("Added new Post")}
+                    onClick={() => dispatch(openNewPostModal())}
                 />
                 <Button 
                     className="hidden w-full font-semibold bg-teal-600 py-2 px-6 rounded-3xl text-white hover:hover:bg-teal-700 xl:inline" 
                     text={"Post"}
-                    onClick={() => console.log("Added new Post")}
+                    onClick={() => dispatch(openNewPostModal())}
                 />
             </div>
         </aside>
