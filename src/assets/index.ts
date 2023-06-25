@@ -1,4 +1,4 @@
-import { AiOutlineEye, AiOutlineEyeInvisible, GoHome, MdOutlineExplore, IoBookmarkOutline, CgProfile, GiFeather, IoMdSearch, FiLogOut } from "./icons";
+import { AiOutlineEye, AiOutlineEyeInvisible, GoHome, MdOutlineExplore, IoBookmarkOutline, CgProfile, GiFeather, IoMdSearch, FiLogOut, FaTimes } from "./icons";
 
 export {
     AiOutlineEyeInvisible , 
@@ -9,5 +9,6 @@ export {
     CgProfile, 
     GiFeather, 
     IoMdSearch, 
-    FiLogOut
+    FiLogOut, 
+    FaTimes
 }

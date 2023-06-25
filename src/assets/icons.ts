@@ -6,6 +6,7 @@ import { IoMdSearch} from "react-icons/io";
 import {CgProfile} from "react-icons/cg";
 import {GiFeather} from "react-icons/gi"
 import {FiLogOut} from "react-icons/fi";
+import {FaTimes} from "react-icons/fa";
 
 
 export {
@@ -17,5 +18,6 @@ export {
     CgProfile, 
     GiFeather, 
     IoMdSearch, 
-    FiLogOut
+    FiLogOut,
+    FaTimes
 }
