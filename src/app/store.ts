@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "../pages/auth/authSlice";
+import authReducer from "../features/auth/authSlice";
 import newPostModalReducer from "../components/newPostBox/newPostSlice";
 
 export const store = configureStore({
