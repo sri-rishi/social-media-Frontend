@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AuthResponse} from "../pages/auth/authSlice.types";
+import { AuthResponse} from "../features/auth/authSlice.types";
 
 const loginUserService = (username: string, password: string) => {
     return axios.post<AuthResponse>(
