@@ -8,7 +8,7 @@ type NavLinkWithActiveProps = {
   
 export const NavLinkWithActive: React.FC<NavLinkWithActiveProps> = ({ to, children }) => {
     const location = useLocation();
-    const isActive = location.pathname === to;
+    const isActive: boolean = location.pathname === to;
 
     const activeStyle: CSSProperties = {
         background: isActive ? "white" : undefined,

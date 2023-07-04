@@ -2,13 +2,13 @@ import { useState, ChangeEvent } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { Button} from "../index";
 import { FaTimes } from "../../assets";
-import { RootState } from "../../app/store";
+import { RootState, AppDispatch } from "../../app/store";
 import { closeNewPostModal } from "./newPostSlice";
 
 
-export const NewPostBox = () => {
+export const NewPostBox: React.FC = () => {
     const {newPostModalStatus} = useSelector((store:  RootState ) => store?.newPostModal);
-    const dispatch = useDispatch()
+    const dispatch = useDispatch<AppDispatch>()
     const [newPostDetails, setNewPostDetails] = useState({
         content: ""
     });
