@@ -1,6 +1,7 @@
 import { Login } from "./auth/Login";
 import { SignUp } from "./auth/SignUp";
-import { Home } from "./home/Home";
+import { Feed } from "./feed/Feed";
+import { Template } from "./template/Template";
 
 
-export {Login, SignUp, Home}
+export { Login, SignUp, Feed, Template }
