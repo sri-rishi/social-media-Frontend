@@ -1,7 +1,7 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import type {PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { loginUserService, registerUserService } from "../../services/authServices";
-import { AuthResponse,AuthState,Loginuser, RegisterUser} from "./authSlice.types";
+import { AuthResponse, AuthState, Loginuser, RegisterUser } from "./authSlice.types";
 
 
 const initialState: AuthState = {
@@ -15,7 +15,7 @@ const initialState: AuthState = {
 
 export const loginUser = createAsyncThunk(
     "auth/loginUser",
-    async({username, password}: Loginuser) => {
+    async ({ username, password }: Loginuser) => {
         const response = await loginUserService(username, password);
         console.log(response)
 
@@ -26,8 +26,8 @@ export const loginUser = createAsyncThunk(
 
 
 export const registerUser = createAsyncThunk(
-    "auth/registerUser", 
-    async({username, password, firstname, lastname}: RegisterUser) => {
+    "auth/registerUser",
+    async ({ username, password, firstname, lastname }: RegisterUser) => {
         const response = await registerUserService(username, password, firstname, lastname);
         console.log(response)
 
@@ -39,7 +39,18 @@ export const registerUser = createAsyncThunk(
 export const authSlice = createSlice({
     name: "auth",
     initialState,
-    reducers: {},
+    reducers: {
+        logoutUser: (): AuthState => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("userValue");
+            return {
+                token: null,
+                user: null,
+                error: null,
+                authStatus: "fulfilled"
+            }
+        }
+    },
     extraReducers: {
         [`${loginUser.pending}`]: (state) => {
             state.authStatus = "pending";
@@ -48,12 +59,12 @@ export const authSlice = createSlice({
             state.authStatus = "fulfilled";
             state.token = action.payload.token;
             state.user = action.payload.user;
-            if(state.token !== null) {
+            if (state.token !== null) {
                 localStorage.setItem("token", state.token);
             }
-            if(state.user !== null) {
+            if (state.user !== null) {
                 localStorage.setItem("userValue", JSON.stringify(state.user));
-            }            
+            }
         },
         [`${loginUser.rejected}`]: (state, action: PayloadAction<AuthState>) => {
             state.authStatus = "rejected";
@@ -66,12 +77,12 @@ export const authSlice = createSlice({
             state.authStatus = "fulfilled";
             state.token = action.payload.token;
             state.user = action.payload.user;
-            if(state.token !== null) {
+            if (state.token !== null) {
                 localStorage.setItem("token", state.token);
             }
-            if(state.user !== null) {
+            if (state.user !== null) {
                 localStorage.setItem("userValue", JSON.stringify(state.user));
-            }  
+            }
         },
         [`${registerUser.rejected}`]: (state, action: PayloadAction<AuthState>) => {
             state.authStatus = "rejected";
@@ -80,5 +91,6 @@ export const authSlice = createSlice({
     }
 })
 
+export const { logoutUser } = authSlice.actions;
 
 export default authSlice.reducer;
