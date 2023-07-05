@@ -1,19 +1,20 @@
-import {Routes, Route, useLocation} from "react-router-dom"
-import { Login, SignUp } from "../pages"
-import { useEffect } from "react";
+import { Routes, Route} from "react-router-dom";
+import { Login, SignUp, Template, Feed } from "../features";
+
 
 export const AllRoutes: React.FC = () => {
-    const location = useLocation();
-    const pathname:string = location.pathname;
-
-    useEffect(() => {
-        document.title = pathname === "/" ? "M&T" : pathname.slice(1);
-    }, [pathname]);
-    
-    return(
-        <Routes>
-            <Route path="/login" element={<Login />}/>
-            <Route path="/register" element={<SignUp />} />
-        </Routes>
-    )
-}
+  return (
+    <Routes>
+      <Route 
+        path="/" 
+        element= {
+          <Template>
+            <Feed />
+          </Template>
+        }
+      />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<SignUp />} />
+    </Routes>
+  );
+};
