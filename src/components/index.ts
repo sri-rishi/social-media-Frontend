@@ -8,5 +8,7 @@ import { Header } from './header/Header';
 import { UserImage } from './userImage/UserImage';
 import { Navbar } from './navbar/Navbar';
 import { Footer } from './footer/Footer';
+import { SearchBox } from './searchBox/SearchBox';
+import { FollowBar } from './followbar/Followbar';
 
-export { Button, PasswordCriteriaList, Sidebar, NavLinkWithActive, NewPostBox, FloatPostBtn, Header, UserImage, Navbar, Footer }
+export { Button, PasswordCriteriaList, Sidebar, NavLinkWithActive, NewPostBox, FloatPostBtn, Header, UserImage, Navbar, Footer, SearchBox, FollowBar }
