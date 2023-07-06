@@ -7,6 +7,7 @@ import {
   Navbar,
   Footer,
   NewPostBox,
+  FollowBar,
 } from "../../components";
 
 
@@ -17,11 +18,6 @@ type TemplateProps = {
 export const Template: React.FC<TemplateProps> = ({ children }) => {
   const [loader, setLoader] = useState<boolean>(true);
   const location = useLocation();
-
-  useEffect(() => {
-    document.title =
-      location.pathname === "/" ? "M&T" : location.pathname.slice(1);
-  }, []);
 
   useEffect(() => {
     setLoader(true);
@@ -42,7 +38,7 @@ export const Template: React.FC<TemplateProps> = ({ children }) => {
             </div>
             <FloatPostBtn />
           </main>
-          <div>Follow bar</div>
+          <FollowBar />
         </div>
         <Footer />
       </div>
