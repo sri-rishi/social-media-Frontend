@@ -1,8 +1,10 @@
 import { loginUserService, registerUserService } from "./authServices";
-import { getUsersData } from "./userServices";
+import { getUsersData, followUser, unFollowUser } from "./userServices";
 
 export {
     loginUserService,
     registerUserService,
-    getUsersData
+    getUsersData,
+    followUser,
+    unFollowUser
 }
