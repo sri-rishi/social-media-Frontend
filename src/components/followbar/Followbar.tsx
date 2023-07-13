@@ -1,28 +1,43 @@
 import { Button, UserImage, SearchBox } from "../index";
+import { useState , useEffect} from "react";
 import { Link } from "react-router-dom";
-
-const shownUsers = [
-    {
-        _id: "1", 
-        firstName: "Rahul", 
-        lastName: "Kumar", 
-        profilePic: ""
-    },
-    {
-        _id: "22", 
-        firstName: "Rahul", 
-        lastName: "Kumar", 
-        profilePic: ""
-    },
-    {
-        _id: "3", 
-        firstName: "Rahul", 
-        lastName: "Kumar", 
-        profilePic: ""
-    }
-]
+import { useSelector , useDispatch} from "react-redux";
+import { AppDispatch, RootState } from "../../app/store";
+import { User} from "../../features/auth/authSlice.types";
+import { followUnFollowUser } from "../../features/profilePage/userSlice";
 
 export const FollowBar: React.FC = () => {
+    const {users} = useSelector((store: RootState) => store?.users);
+    const {user} = useSelector((store: RootState) => store?.auth);
+    const dispatch = useDispatch<AppDispatch>();
+    const [shownUsers, setShownUsers] = useState<User[] | []>([]);
+
+    useEffect(() => {
+        if (user) {
+            setShownUsers(
+                users
+                .filter((person) => person.username !== user.username)
+                .filter((person) => {
+                    if (Array.isArray(user.following)) {
+                        return !user.following.includes(person._id);
+                    }
+                    return true;
+                })
+                .slice(0, 4)
+            );
+        }
+    }, [user, users]);
+
+    const followHandler = (_id: string) => {
+        const isFollower = user?.followers.includes(_id);
+        if(user) {
+            dispatch(followUnFollowUser({
+                targetUserId: _id, 
+                userId: user?._id, 
+                isFollowed: isFollower ? true : false
+            }))
+        }
+    }
 
     return (
         <div className="hidden w-1/4 lg:flex flex-col gap-8 fixed top-0 right-0 items-start p-4 xl:px-8">
@@ -37,7 +52,7 @@ export const FollowBar: React.FC = () => {
 
                             {   
                             shownUsers.length > 0 ?
-                                shownUsers.map(({_id, firstName, lastName, profilePic}) => (
+                                shownUsers.map(({_id, firstname, lastname, profilePicture}) => (
                                     <div 
                                         key={_id}
                                         className="flex flex-row items-center justify-between py-2 px-1 hover:bg-slate-100"
@@ -45,21 +60,23 @@ export const FollowBar: React.FC = () => {
                                         <div className="flex flex-row items-center gap-2">
                                             <UserImage 
                                                 imgSrc={
-                                                    profilePic && profilePic
+                                                    profilePicture && profilePicture
                                                 }
                                                 alt={
-                                                    firstName && firstName
+                                                    firstname && firstname
                                                 }
                                                 width={"w-10"}
                                             />
                                             <Link to={`/userProfile/${_id}`}>
-                                                <p className="font-semibold text-sm">{`${firstName} ${lastName}`}</p>
+                                                <p className="font-semibold text-sm">{`${firstname} ${lastname}`}</p>
                                             </Link>
                                         </div>
                                         <Button 
                                             className="bg-teal-600 py-1 px-3 rounded-2xl text-white hover:bg-teal-700" 
                                             text={"Follow"}
-                                            onClick={() => console.log(_id)}
+                                            onClick={() => 
+                                                followHandler(_id)
+                                            }
                                         />
                                     </div>
                                 ) )

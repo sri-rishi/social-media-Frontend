@@ -4,6 +4,7 @@ export type User = {
     password: string,
     firstname: string,
     lastname: string,
+    profilePicture: string,
     followers: Array<string>,
     following: Array<string>,
     createdAt: Date,
