@@ -23,7 +23,7 @@ export const Feed: React.FC = () => {
                     />
                 </div>
                 <Button 
-                    className={"font-semibold bg-sky-600 py-1 px-6 rounded-2xl text-white hover:bg-teal-700"} 
+                    className={"font-semibold bg-teal-600 py-1 px-6 rounded-2xl text-white hover:bg-teal-700"} 
                     text={"Add"}
                     onClick={() => dispatch(openNewPostModal())}
                 />
