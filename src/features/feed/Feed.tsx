@@ -1,11 +1,12 @@
-import { useDispatch } from "react-redux";
-import {Button} from "../../components/index";
+import { useDispatch, useSelector } from "react-redux";
+import {Button, Post} from "../../components/index";
 import { openNewPostModal } from "../../components/newPostBox/newPostSlice";
-import { AppDispatch } from "../../app/store";
+import { AppDispatch, RootState } from "../../app/store";
 
 const shownPosts:Array <string> = [];
 
 export const Feed: React.FC = () => {
+    const {posts} = useSelector((store: RootState) => store?.posts);
     const dispatch = useDispatch<AppDispatch>();
 
     return (
@@ -30,9 +31,9 @@ export const Feed: React.FC = () => {
             </div>
             <div className="w-full flex flex-col items-center gap-4">
                 {
-                   shownPosts.length !== 0 ?
-                   shownPosts.map(post => (
-                    <div>Post</div>
+                   posts.length !== 0 ?
+                   posts.map(post => (
+                    <Post post={post}/>
                    )) :
                    <p>Start following to see some post</p>
                 }

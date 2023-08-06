@@ -10,5 +10,20 @@ import { Navbar } from './navbar/Navbar';
 import { Footer } from './footer/Footer';
 import { SearchBox } from './searchBox/SearchBox';
 import { FollowBar } from './followbar/Followbar';
+import { Post } from './post/Post';
 
-export { Button, PasswordCriteriaList, Sidebar, NavLinkWithActive, NewPostBox, FloatPostBtn, Header, UserImage, Navbar, Footer, SearchBox, FollowBar }
+export {
+    Button,
+    PasswordCriteriaList,
+    Sidebar,
+    NavLinkWithActive,
+    NewPostBox,
+    FloatPostBtn,
+    Header,
+    UserImage,
+    Navbar,
+    Footer,
+    SearchBox,
+    FollowBar,
+    Post
+}
