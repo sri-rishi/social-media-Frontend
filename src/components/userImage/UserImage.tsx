@@ -1,5 +1,5 @@
 type UserImageType = {
-    imgSrc: string,
+    imgSrc: string | undefined,
     alt: string,
     width: string
 }
